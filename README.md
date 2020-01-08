@@ -1,4 +1,4 @@
-# algori
+# algorithm
 
 1일 1문제 1커밋을 하고자 만든 repository
 
