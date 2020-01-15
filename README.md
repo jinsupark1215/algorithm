@@ -10,3 +10,6 @@ Baekjoon Online, SamsungExpert, Programmers 문제 풀이 및 해석
 
 3. 로직
 순으로 간단하게 해설
+
+백준 : https://www.acmicpc.net/user/jinsu6628 \
+삼성 expert id: 박진수
