@@ -25,7 +25,7 @@ public class Main13459_±∏ΩΩ≈ª√‚1 {
 		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		ans = Integer.MAX_VALUE;
+		ans = 0;
 		arr = new char[N][M];
 		red = false;blue = false;
 		
@@ -40,8 +40,7 @@ public class Main13459_±∏ΩΩ≈ª√‚1 {
 			dfs(1,i,arr);
 		}
 		
-		if(ans == Integer.MAX_VALUE)System.out.println(-1);
-		else System.out.println(ans);
+		System.out.println(ans);
 	}
 
 	private static void dfs(int cnt, int dir, char[][] tmp) {
@@ -173,7 +172,7 @@ public class Main13459_±∏ΩΩ≈ª√‚1 {
 		}
 		
 		if(red && !blue) {
-			ans = Math.min(ans, cnt);
+			ans = 1;
 			return;
 		}
 		else if(red && blue ||!red && blue) {
