@@ -51,6 +51,7 @@ public class Solution2105_디저트카페 {
 			ans = Math.max(ans, cnt-1);
 		}
 		
+		//방향 3이 마지막
 		if(dir > 3)return;
 		//이미 먹은 디저트면 리턴
 		if(chk[map[r][c]]) return;
@@ -61,7 +62,7 @@ public class Solution2105_디저트카페 {
 			int nr = r + pos[dir][0];
 			int nc = c + pos[dir][1];
 			if(nr>= 0 && nr < N && nc >=0 && nc <N) {
-				//문제 없으면 진행
+				//문제 없으면 갈 수 있는 방향 다 진행
 				dfs(nr,nc,cnt+1,dir);
 				dfs(nr, nc, cnt+1, dir+1);
 			}
