@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main16235_나무재테크 {
@@ -17,6 +17,8 @@ public class Main16235_나무재테크 {
 	 * 
 	 * 3. PriorQueue에 나무의 위치와  수명순으로 정렬
 	 * map에는 양분만 처리
+	 * 
+	 * 임시 List로 구분 지어줘야함
 	 * 봄, 여름, 가을, 겨울 구현 후 K년이 됬을 때 멈춘 후
 	 * 답 :  큐의 사이즈 
 	 */
@@ -30,7 +32,13 @@ public class Main16235_나무재테크 {
 		
 		int[][] map = new int[N][N];
 		int[][] plus = new int[N][N];
-		ArrayList<Tree> list = new ArrayList<>();
+		PriorityQueue<Tree> q = new PriorityQueue<>(new Comparator<Tree>() {
+
+			@Override
+			public int compare(Tree o1, Tree o2) {
+				return o1.age-o2.age;
+			}
+		});
 		
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
@@ -47,49 +55,48 @@ public class Main16235_나무재테크 {
 		
 		for (int i = 0; i < M; i++) {
 			st = new StringTokenizer(br.readLine());
-			list.add(new Tree(Integer.parseInt(st.nextToken())-1, Integer.parseInt(st.nextToken())-1, Integer.parseInt(st.nextToken())));
+			q.add(new Tree(Integer.parseInt(st.nextToken())-1, Integer.parseInt(st.nextToken())-1, Integer.parseInt(st.nextToken())));
 		}
 		
-		ArrayList<Tree> del = new ArrayList<>();
 		for (int i = 0; i < K; i++) {
+			ArrayList<Tree> del = new ArrayList<>();
+			ArrayList<Tree> ins = new ArrayList<>();
+			ArrayList<Tree> tmp = new ArrayList<>();
 			
 			//봄
-			int size = list.size();
+			int size = q.size();
 			for (int j = 0; j < size; j++) {
-				Tree t = list.get(j);
-				if(map[t.r][t.c]>= t.age) {
-					map[t.r][t.c] -= t.age; 
-					list.add(new Tree(t.r,t.c,t.age+1));
+				Tree t = q.poll();
+				if (map[t.r][t.c] >= t.age) {
+					map[t.r][t.c] -= t.age;
+					if ((t.age + 1) % 5 == 0) {
+						ins.add(new Tree(t.r, t.c, t.age + 1));
+					}
+					tmp.add(new Tree(t.r, t.c, t.age + 1));
+
 				}else {
 					del.add(t);
 				}
 			}
-			for (int j = 0; j < size; j++) {
-				list.remove(0);
-			}
 			
 			//여름
-			size = del.size();
-			for (int j = 0; j < size; j++) {
+			for (int j =0; j < del.size(); j++) {
 				map[del.get(j).r][del.get(j).c] += del.get(j).age/2;
-				list.remove(del.get(j));
 			}
+			del.clear();
 			
-			
-			size = list.size();
 			//가을
-			for (int j = 0; j < size; j++) {
-				Tree t = list.get(j);
+			for (int j =0; j < ins.size(); j++) {
 				for (int l = 0; l < 8; l++) {
-					int nr = t.r + pos[l][0];
-					int nc = t.c + pos[l][1];
+					int nr = ins.get(j).r + pos[l][0];
+					int nc = ins.get(j).c + pos[l][1];
 					if(nr>=0 && nr<N && nc >=0 && nc < N) {
-						if(t.age>0 && t.age%5 ==0) {
-							list.add(new Tree(nr,nc,1));
-						}
+							q.add(new Tree(nr,nc,1));
 					}
 				}
 			}
+			ins.clear();
+			
 			//겨울
 			for (int j = 0; j < N; j++) {
 				for (int k = 0; k < N; k++) {
@@ -97,16 +104,13 @@ public class Main16235_나무재테크 {
 				}
 			}
 			
-			Collections.sort(list, new Comparator<Tree>() {
-
-				@Override
-				public int compare(Tree o1, Tree o2) {
-					return o2.age - o1.age;
-				}
-			});
+			//임시로 넣어 논 것 
+			for (int j = 0; j < tmp.size(); j++) {
+				q.add(tmp.get(j));
+			}
 		}
 		
-		System.out.println(list.size());
+		System.out.println(q.size());
 	}
 	static class Tree{
 		int r,c,age;
