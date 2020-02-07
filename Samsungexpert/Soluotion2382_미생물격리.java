@@ -59,14 +59,6 @@ public class Soluotion2382_미생물격리 {
 				visit = new boolean[N][N];
 				map = new Point[N][N];
 				
-//				for (int i = 0; i < N; i++) {
-//					for (int j = 0; j < N; j++) {
-//						if(map[i][j] == null)System.out.print(0);
-//						else System.out.print(1);
-//					}
-//					System.out.println();
-//				}
-//				System.out.println();
 				Queue<Point> list = new LinkedList<>();
 				int size = q.size();
 				for (int i = 0; i < size; i++) {
