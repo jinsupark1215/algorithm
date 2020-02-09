@@ -19,10 +19,10 @@ public class Main17825_주사위윷놀이 {
 	 * 구현
 	 */
 	static int[] order, dice;
-	static int[] map = {0, 2, 4, 6, 8, 0, 12, 14, 16, 18, 0, 22, 24, 26, 28, 0, 32, 34, 36, 38, 40};
-	static int[] five = {10, 13, 16, 19, 25, 30, 35, 40,0,0,0,0,0};
-	static int[] ten = {20, 22, 24, 25, 30, 35, 40,0,0,0,0,0};
-	static int[] fifteen = {30, 28, 27, 26, 25, 30, 35, 40,0,0,0,0,0};
+	static int[] route0 = { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40 };
+    static int[] route1 = { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 28, 27, 26, 25, 30, 35, 40 };
+    static int[] route2 = { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 25, 30, 35, 40 };
+    static int[] route3 = { 0, 2, 4, 6, 8, 10, 13, 16, 19, 25, 30, 35, 40 };
 	static int cnt, ans;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,8 +40,10 @@ public class Main17825_주사위윷놀이 {
 	}
 	private static void dfs(int idx) {
 		if(idx == 10) {
-			move();
-			return;
+			 int sum = move();
+	            if (ans < sum)
+	                ans = sum;
+	            return;
 		}
 		
 		for (int i = 0; i < 4; i++) {
@@ -49,87 +51,107 @@ public class Main17825_주사위윷놀이 {
 				dfs(idx+1);
 			}
 	}
-	private static void move() {
-		boolean[] visit1 = new boolean[26];
-		boolean[] visit2 = new boolean[13];
-		boolean[] visit3 = new boolean[12];
-		boolean[] visit4 = new boolean[13];
-		int[] horse = new int[4];
-		boolean[][] chk = new boolean[4][3];
-		
-		int sum = 0;
-		for (int i = 0; i < 10; i++) {
-			horse[order[i]] += dice[i];
+	private static int move() {
+		 int[][] horse = new int[4][2]; // 말의 위치, 가는 길, 움직인 횟수
+	        int sum = 0;
 
-			if(horse[order[i]] == 5) {
-				chk[order[i]][0] = true;
-				visit1[horse[order[i]] - dice[i]] = false;
-			}else if(horse[order[i]] == 10) {
-				chk[order[i]][1] = true;				
-				visit1[horse[order[i]] - dice[i]] = false;
-			}else if(horse[order[i]] == 15) {			
-				chk[order[i]][2] = true;				
-				visit1[horse[order[i]] - dice[i]] = false;
-			}
-			
-			if(chk[order[i]][0] && horse[order[i]] < 12 + 5 && !visit2[horse[order[i]] -5]) {
-				if( horse[order[i]] < 12) {
-				sum += five[horse[order[i]] - 5];
-				visit2[horse[order[i]] - 5] = true;
-				if(horse[order[i]] - 5 > 3) {
-					visit3[horse[order[i]] - 4 -1] = true;
-					visit4[horse[order[i]] - 4] = true;
-				}
-				}
-				if(horse[order[i]] - 5  -dice[i]>=0) {
-					visit2[horse[order[i]] - 5 - dice[i]] = false;
-					if(horse[order[i]] - 5 > 3) {
-						visit3[horse[order[i]] - 4 -1- dice[i]] = false;
-						visit4[horse[order[i]] - 4- dice[i]] = false;
-					}
-				}
-			}else if(chk[order[i]][1] && horse[order[i]] < 16 + 5 && !visit3[horse[order[i]] - 10]) {
-				if(horse[order[i]] < 16) {
-				sum += ten[horse[order[i]] - 10];
-				visit3[horse[order[i]] - 10] = true;
-				if(horse[order[i]] - 10 > 2) {
-					visit2[horse[order[i]] - 9] = true;
-					visit4[horse[order[i]] - 9] = true;
-				}
-				}
-				if(horse[order[i]] - 10 -dice[i] >=0) {
-					visit3[horse[order[i]] - 10 - dice[i]] = false;
-					if(horse[order[i]] - 10 > 3) {
-						visit2[horse[order[i]] - 9- dice[i]] = false;
-						visit4[horse[order[i]] - 9- dice[i]] = false;
-					}
-				}
-			}else if(chk[order[i]][2] && horse[order[i]] < 22 + 5 && !visit4[horse[order[i]] - 15]) {
-				if(horse[order[i]] < 22) {
-				sum += fifteen[horse[order[i]] - 15];
-				visit4[horse[order[i]] - 15] = true;
-				if(horse[order[i]] - 15 > 3) {
-					visit2[horse[order[i]] - 14] = true;
-					visit3[horse[order[i]] - 14 -1] = true;
-				}
-				}
-				if(horse[order[i]] - 15 -dice[i] >=0) {
-					visit4[horse[order[i]] - 15 - dice[i]] = false;
-					if(horse[order[i]] - 15 > 3) {
-						visit2[horse[order[i]] - 14- dice[i]] = false;
-						visit3[horse[order[i]] - 14-1- dice[i]] = false;
-					}
-				}
-				
-			}else if(!chk[order[i]][0] && !chk[order[i]][1] && !chk[order[i]][2]
-					&& horse[order[i]] < 21+5 && !visit1[horse[order[i]]]){
-				if(horse[order[i]] < 21) {
-				sum += map[horse[order[i]]];					
-				visit1[horse[order[i]]] = true;
-				}
-					visit1[horse[order[i]] - dice[i]] = false;
-			}
-		}
-		ans = Math.max(ans, sum);
-	}
+	        for (int i = 0; i < 10; i++) {
+	            int cur = order[i]; // 현재움직일 말의 번호.
+	            horse[cur][0] += dice[i]; // 움직였을때의 위치.
+	            int tmp = horse[cur][1];
+
+	            // ================길 변경================
+	            if (horse[cur][1] == 0) {
+	                if (horse[cur][0] == 5)
+	                    horse[cur][1] = 3;
+	                else if (horse[cur][0] == 10)
+	                    horse[cur][1] = 2;
+	                else if (horse[cur][0] == 15)
+	                    horse[cur][1] = 1;
+	            }
+
+	            // ================중복체크================
+	            boolean flag = false;
+	            int j = 0;
+	            for (; j < horse.length; j++) {
+	                if (cur != j) {
+	                    if (horse[cur][0] == horse[j][0] && horse[cur][1] == horse[j][1]) {
+	                        flag = true;
+	                        break;
+	                    } else if ((horse[cur][1] == 1 && horse[cur][0] == 19) || (horse[cur][1] == 2 && horse[cur][0] == 13)
+	                            || (horse[cur][1] == 3 && horse[cur][0] == 9)) {
+	                        // 25번에 도착했을때
+	                        if (horse[j][1] == 1 && horse[j][0] == 19) {// 1번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 2 && horse[j][0] == 13) {// 2번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 3 && horse[j][0] == 9) {// 3번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        }
+	                    } else if ((horse[cur][1] == 1 && horse[cur][0] == 20) || (horse[cur][1] == 2 && horse[cur][0] == 14)
+	                            || (horse[cur][1] == 3 && horse[cur][0] == 10)) {
+	                        // 30번에 도착했을때
+	                        if (horse[j][1] == 1 && horse[j][0] == 20) {// 1번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 2 && horse[j][0] == 14) {// 2번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 3 && horse[j][0] == 10) {// 3번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        }
+	                    }
+
+	                    else if ((horse[cur][1] == 1 && horse[cur][0] == 21) || (horse[cur][1] == 2 && horse[cur][0] == 15)
+	                            || (horse[cur][1] == 3 && horse[cur][0] == 11)) {
+	                        // 35번에 도착했을때
+	                        if (horse[j][1] == 1 && horse[j][0] == 21) {// 1번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 2 && horse[j][0] == 15) {// 2번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 3 && horse[j][0] == 11) {// 3번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        }
+	                    } else if ((horse[cur][1] == 0 && horse[cur][0] == 20) || (horse[cur][1] == 1 && horse[cur][0] == 22)
+	                            || (horse[cur][1] == 2 && horse[cur][0] == 16) || (horse[cur][1] == 3 && horse[cur][0] == 12)) {
+	                        // 40번에 도착했을때
+	                        if (horse[j][1] == 0 && horse[j][0] == 20) {// 0번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 1 && horse[j][0] == 22) {// 1번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 2 && horse[j][0] == 16) {// 2번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        } else if (horse[j][1] == 3 && horse[j][0] == 12) {// 3번길에 같은위치
+	                            flag = true;
+	                            break;
+	                        }
+	                    }
+	                }
+	            }
+	            if (flag) {
+	                return Integer.MIN_VALUE;
+	            }
+
+	            // ================더하기================
+	            if (horse[cur][1] == 0 && horse[cur][0] < route0.length)
+	                sum += route0[horse[cur][0]];
+	            else if (horse[cur][1] == 1 && horse[cur][0] < route1.length)
+	                sum += route1[horse[cur][0]];
+	            else if (horse[cur][1] == 2 && horse[cur][0] < route2.length)
+	                sum += route2[horse[cur][0]];
+	            else if (horse[cur][1] == 3 && horse[cur][0] < route3.length)
+	                sum += route3[horse[cur][0]];
+	        }
+	        return sum;
+	    }
 }
