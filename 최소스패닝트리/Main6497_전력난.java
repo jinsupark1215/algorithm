@@ -36,7 +36,6 @@ public class Main6497_Àü·Â³­ {
 				cost += d;
 				pq.add(new Node(s, e, d));
 			}
-			st = new StringTokenizer(br.readLine());
 			parent = new int[n];
 			for (int i = 1; i < n; i++) {
 				parent[i] = i;
