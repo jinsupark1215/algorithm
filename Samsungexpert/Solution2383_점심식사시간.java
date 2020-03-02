@@ -89,6 +89,7 @@ public class Solution2383_점심식사시간 {
 		
 		Collections.sort(list1);
 		Collections.sort(list2);
+		
 		int max = 0;
 		if(list1.size() <= 3 && list2.size() <= 3) {
 			for (int i = 0; i < list1.size(); i++) {
@@ -111,6 +112,7 @@ public class Solution2383_점심식사시간 {
 					max = Math.max(max, list1.get(i)+down[0][2]+(list1.get(i-3)+down[0][2] - list1.get(i)));
 				}
 			}
+			
 		}else if(list1.size() <= 3 && list2.size() > 3) {
 			for (int i = 0; i < list1.size(); i++) {
 				max = Math.max(max, list1.get(i)+down[0][2]);
