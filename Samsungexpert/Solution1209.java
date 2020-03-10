@@ -23,14 +23,17 @@ public class Solution1209 {
 			int max = 0;
 			int sum = 0;
 			for (int i = 0; i < 100; i++) {
+				//행 가로
 				for (int j = 0; j < 100; j++) {
 					sum += map[i][j];
 				}
 				max = max<sum?sum:max;
 				sum =0;
+				//열 세로
 				for (int j = 0; j < 100; j++) {
 					sum += map[j][i];
 				}
+				
 				max = max<sum?sum:max;
 				sum =0;
 				for (int j = 0; j < 100; j++) {
@@ -40,8 +43,9 @@ public class Solution1209 {
 				}
 				max = max<sum?sum:max;
 				sum=0;
+				
 				for (int j = 0; j < 100; j++) {
-					if(i + j ==100) {
+					if(i + j ==99) {
 						sum += map[j][i];
 					}
 				}

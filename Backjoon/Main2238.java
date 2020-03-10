@@ -19,14 +19,7 @@ public class Main2238 {
 			money[i] = num;
 			chk[num]++;
 		}
-		/*
-		 * 1. 경매 낙찰된 사람과 금액 출력
-		 * 
-		 * 2. (중복이 없을 떄)1개의 가격을 제시한 사람 중 가장 작은 금액을 제시한 사람이 낙찰
-		 * 		(중복이 있을 때) 가장 적은 중복의 숫자 중 가장 먼저 낙찰한 사람
-		 * 
-		 * 3. if 문 처리 (구현)
-		 */
+		
 		int one = 0;
 		int many = Integer.MAX_VALUE;
 		for (int i = 0; i < u+1; i++) {
@@ -64,3 +57,4 @@ public class Main2238 {
 		}
 	}
 }
+

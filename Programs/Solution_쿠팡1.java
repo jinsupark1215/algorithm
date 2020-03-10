@@ -5,15 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution_쿠팡1 {
+public class Solution_荑좏뙜1 {
 
-	/*
-	 * 1. 배송하지 않은 집의 위치를 오른차순 정렬
-	 * 
-	 * 2. 3<= n <=100000,  -1000000000<min,max< 1000000000 십억
-	 * 
-	 * 3. boolean[] 배열
-	 */
 	public static void main(String[] args) {
 		int n = 5;
 		int min_position = -5;

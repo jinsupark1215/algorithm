@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution1208 {
+public class Solution1208{
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,11 +24,11 @@ public class Solution1208 {
 			}
 			
 			/*
-			 * 1. ¹®Á¦ÀÌÇØ : ´ıÇÁ ÈÄ ÃÖ°íÁ¡°ú ÃÖÀúÁ¡ÀÇ Â÷ÀÌ¸¦ ¹İÈ¯
+			 * 1. ë¬¸ì œì´í•´ : ë¤í”„ í›„ ìµœê³ ì ê³¼ ìµœì €ì ì˜ ì°¨ì´ë¥¼ ë°˜í™˜
 			 * 
-			 * 2. °¡·Î 100, »óÀÚ³ôÀÌ 1~100, ´ıÇÁÈ½¼ö 1000
+			 * 2. ê°€ë¡œ 100, ìƒìë†’ì´ 1~100, ë¤í”„íšŸìˆ˜ 1000
 			 * 
-			 * 3. »óÀÚ¸¦ ¿·À¸·Î ‡¶Çô¼­ ºÃÀ» ¶§, 100ÀÌ ¾Æ´Ñ °ÍÀ» Ã£¾Æ¼­ ¸ÇµÚºÎÅÍ ÇÏ³ª¾¿ Ã¼Å©
+			 * 3. ìƒìë¥¼ ì˜†ìœ¼ë¡œ ëˆí˜€ì„œ ë´¤ì„ ë•Œ, 100ì´ ì•„ë‹Œ ê²ƒì„ ì°¾ì•„ì„œ ë§¨ë’¤ë¶€í„° í•˜ë‚˜ì”© ì²´í¬
 			 */
 			int max = 0;
 			int min = 0;
@@ -54,3 +54,4 @@ public class Solution1208 {
 		}
 	}
 }
+

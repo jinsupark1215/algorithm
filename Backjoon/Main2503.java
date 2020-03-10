@@ -23,16 +23,6 @@ public class Main2503 {
 			map[i][4] = ball;
 			}
 
-		/*
-		 * 	1. ¹®Á¦ÀÌÇØ : ¼ıÀÚ¾ß±¸¸¦ ÇØ¼­ ´äÀÌ °¡´ÉÇÑ °¹¼ö ±¸ÇÏ±â
-		 * 
-		 * 	2. Á¦¾à Á¶°Ç : ¼­·Î ´Ù¸¥ ¼ö. 3ÀÚ¸®
-		 * 					ÀÚ¸®¿Í ¼ıÀÚ°¡ °°À¸¸é strike
-		 * 					ÀÚ¸®´Ù¸£°í ¼ıÀÚ °°À¸¸é ball
-		 * 
-		 * 3. ·ÎÁ÷ : ÀüÃ¼ ¼ö Ã£¾Æº¸°í Áßº¹µÇ¸é ³Ñ¾î°¡°í strike¿Í ball Ã¼Å©.
-		 */
-		
 		solve();
 		System.out.println(solve());
 		}
@@ -51,21 +41,21 @@ public class Main2503 {
 						int strike = 0;
 						int ball = 0;
 						
-						//Ã¹¹øÂ°ÀÚ¸®
+						//ì²«ë²ˆì§¸ìë¦¬
 						if(i == map[l][0]) {
 							strike++;
 						}else if(i == map[l][1] || i == map[l][2]) {
 							ball++;
 						}
 						
-						//µÎ¹øÂ°ÀÚ¸®
+						//ë‘ë²ˆì§¸ìë¦¬
 						if(j == map[l][1]) {
 							strike++;
 						}else if(j == map[l][0] || j == map[l][2]) {
 							ball++;
 						}
 						
-						//¼¼¹øÂ°ÀÚ¸®
+						//ì„¸ë²ˆì§¸ìë¦¬
 						if(k == map[l][2]) {
 							strike++;
 						}else if(k == map[l][1] || k == map[l][0]) {
@@ -87,3 +77,4 @@ public class Main2503 {
 		return answer;
 	}
 }
+

@@ -22,13 +22,7 @@ public class Main8979 {
 			map[i][3] = Integer.parseInt(st.nextToken());
 		}
 		
-		/*
-		 * 1. 해당 국가(k)의 순위를 매기자.
-		 * 
-		 * 2. 금메달 -> 은메달 -> 동메달 순 . 동등 순위 있음 주의
-		 * 
-		 * 3. 각 조건 감안해서 구현
-		 */
+		
 		for (int i = 0; i < n; i++) {
 			int idx = 1;
 			for (int j = 0; j < n; j++) {
@@ -54,3 +48,4 @@ public class Main8979 {
 		}
 	}
 }
+

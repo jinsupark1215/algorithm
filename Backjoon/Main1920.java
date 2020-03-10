@@ -10,11 +10,11 @@ import java.util.StringTokenizer;
 public class Main1920 {
 
 	/*
-	 * 1. MÀÇ ¼ıÀÚ°¡ N¿¡ ÀÖ´ÂÁö Ã£´Â ÇÁ·Î±×·¥
+	 * 1. Mì˜ ìˆ«ìê°€ Nì— ìˆëŠ”ì§€ ì°¾ëŠ” í”„ë¡œê·¸ë¨
 	 * 
-	 * 2. N,MÀº 100000 ÀÌÇÏ
+	 * 2. N,Mì€ 100000 ì´í•˜
 	 * 
-	 * 3. Map ÀÌ¿ë
+	 * 3. Map ì´ìš©
 	 */
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));

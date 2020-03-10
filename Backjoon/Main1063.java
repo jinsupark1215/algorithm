@@ -1,5 +1,4 @@
 package Backjoon;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,17 +19,6 @@ public class Main1063 {
 		int sc = stone.charAt(1)-'0';
 		int n = Integer.parseInt(st.nextToken());
 		
-		
-		/*
-		 * 1. 문제 이해 : 킹과 돌의 마지막 위치 구하기
-		 * 
-		 * 2. 제약 조건 : 맵의 바깥으로 나갈 수 없음. 
-		 * 			     킹이 가고가하는 방향에 돌이 있으면 돌도 킹의 이동방향으로 움직임.
-		 * 			     돌이 맵의 바깥으로 나갔을 떄 그전 방향으로 다시 돌아오기.
-		 * 
-		 *  3. 로직 : 킹과 돌의 위치를 저장해두고 위치만 변경해가며 체크.조건 잘 확인하기.
-		 *  
-		 */
 		for (int i = 0; i < n; i++) {
 			String input = br.readLine();
 			switch (input) {

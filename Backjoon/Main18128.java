@@ -37,7 +37,7 @@ public class Main18128 {
 				map[i][j] = a.charAt(j)-'0';
 			}
 		}
-		// ÀÔ·Â
+		// ìž…ë ¥
 		map[n-1][n-1] = 2;
 		min = -1;
 		flag = false;
@@ -62,7 +62,7 @@ public class Main18128 {
 						if(map[nr][nc] == 1) {
 							map[nr][nc] = 2;
 							q.add(new Water(nr,nc,water.day+1));
-						}else if(map[nr][nc] == 0) {
+						}else {
 							q.add(new Water(nr,nc,water.day+1));
 						}
 					}
@@ -102,3 +102,4 @@ public class Main18128 {
 		
 	}
 }
+

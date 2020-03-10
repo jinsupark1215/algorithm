@@ -1,14 +1,7 @@
 package Programs;
 
-public class Solution_쿠팡2 {
+public class Solution_荑좏뙜2 {
 
-	/*
-	 * 1. 조건에 맞게 물건을 뱅송하는 방법의 수
-	 * 
-	 * 2. 1<=N<=6, 1<=M<=20, T<=N,K<=M
-	 * 
-	 * 3. dfs
-	 */
 	static int[] arr = new int[6];
 	static int answer;
 
