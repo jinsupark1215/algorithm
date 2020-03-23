@@ -81,10 +81,12 @@ public class Main18808 {
 			for (int l = 0; l <= M - C; l++) {
 				flag = true;
 
+				jin:
 				for (int i = k; i < k + R; i++) {
 					for (int j = l; j < l + C; j++) {
 						if (map[i][j] == 1 && monun[i - k][j - l] == 1) {
 							flag = false;
+							break jin;
 						}
 					}
 				}
