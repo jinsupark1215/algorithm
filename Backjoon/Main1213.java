@@ -17,31 +17,43 @@ public class Main1213 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input = br.readLine();
 		int[] arr = new int[26];
-		
-		for (int i = 0; i < input.length(); i++) {
-			arr[input.charAt(i) -'A']++;
-		}
-		
-		boolean flag = true;
-		for (int i = 0; i < 26; i++) {
-			if(arr[i] % 2 !=0)flag = false;
-		}
-		
-		if(!flag) {
-			System.out.println("I'm Sorry Hansoo");
-		}else {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < 26; i++) {
-				for (int j = 0; j < arr[i]/2; j++) {
-					sb.append((char)('A' +i));					
+
+				for (int i = 0; i < input.length(); i++)
+					arr[input.charAt(i) - 'A']++;
+
+				int cnt = 0;
+				String first = "";
+				String second = "";
+				String third = "";
+
+				for (int i = 0; i < 26; i++) {
+					if (arr[i] != 0) {
+						if (arr[i] % 2 == 0) {
+							while (arr[i] > 0) {
+								first += (char) (i + 'A');
+								arr[i] -= 2;
+							}
+						} else {
+							while (arr[i] > 1) {
+								first += (char) (i + 'A');
+								arr[i] -= 2;
+							}
+						}
+					}
+
+					if (arr[i] % 2 != 0)
+						cnt++;
+					
+					if (cnt <= 1 && arr[i] > 0)
+						second += (char) (i + 'A');
 				}
-			}
-			for (int i = 25; i >=0; i--) {
-				for (int j = 0; j < arr[i]/2; j++) {
-					sb.append((char)('A' +i));					
-				}
-			}
-			System.out.println(sb.toString());
-		}
+
+				for (int i = first.length() - 1; i >= 0; i--)
+					third += first.charAt(i);
+
+				if (cnt <= 1)
+					System.out.println(first + second + third);
+				else
+					System.out.println("I'm Sorry Hansoo");
 	}
 }
