@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -18,11 +17,13 @@ public class Main18352 {
 	 * 
 	 * 2. N <=300,000, M <=1000000
 	 * 
-	 * 3. 맵에 그린 후BFS
+	 * 3. 맵에 그린 후BFS -> 메모리초과
+	 * 
+	 * 인접리스트 만든 후 거리 배열로 거리만 표시
 	 */
 	static int N, M, K, X;
 	static ArrayList[] arr;
-	static boolean[] visit;
+	static int[] ans;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,7 +33,7 @@ public class Main18352 {
 		K = Integer.parseInt(st.nextToken());
 		X = Integer.parseInt(st.nextToken());
 		arr = new ArrayList[N + 1];
-		visit = new boolean[N + 1];
+		ans = new int[N + 1];
 
 		for (int i = 1; i <= N; i++) {
 			arr[i] = new ArrayList<Integer>();
@@ -42,43 +43,42 @@ public class Main18352 {
 			arr[Integer.parseInt(st.nextToken())].add(Integer.parseInt(st.nextToken()));
 		}
 
-		Queue<Point> q = new LinkedList<>();
-		ArrayList<Integer> list = new ArrayList<>();
-		visit[X] = true;
+		Queue<City> q = new LinkedList<>();
+		ans[X] = -1;
 		for (int i = 0; i < arr[X].size(); i++) {
-				q.add(new Point((int) arr[X].get(i), 1));
-				visit[(int)arr[X].get(i)] = true;
+			q.add(new City((int) arr[X].get(i), 1));
+			ans[(int) arr[X].get(i)] = 1;
 		}
 
 		while (!q.isEmpty()) {
-			Point p = q.poll();
+			City c = q.poll();
 
-			if (p.dist == K) {
-				list.add(p.end);
-			} else {
-				for (int i = 0; i < arr[p.end].size(); i++) {
-					if (!visit[(int)arr[p.end].get(i)]) {
-						q.add(new Point((int) arr[p.end].get(i), p.dist + 1));
-						visit[(int)arr[p.end].get(i)] = true;
+			if (c.dist <= K) {
+				for (int i = 0; i < arr[c.end].size(); i++) {
+					if (ans[(int) arr[c.end].get(i)] == 0) {
+						q.add(new City((int) arr[c.end].get(i), c.dist + 1));
+						ans[(int) arr[c.end].get(i)] = c.dist+1;
 					}
 				}
 			}
+
 		}
-		if (list.isEmpty()) {
-			System.out.println(-1);
-		} else {
-			Collections.sort(list);
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println(list.get(i));
+
+		boolean flag = false;
+		for (int i = 1; i <= N; i++) {
+			if (ans[i] == K) {
+				flag = true;
+				System.out.println(i);
 			}
 		}
-
+		if (!flag)
+			System.out.println(-1);
 	}
 
-	static class Point {
+	static class City {
 		int end, dist;
 
-		public Point(int end, int dist) {
+		public City(int end, int dist) {
 			super();
 			this.end = end;
 			this.dist = dist;
