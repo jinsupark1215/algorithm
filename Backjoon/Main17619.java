@@ -3,8 +3,8 @@ package Backjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 public class Main17619 {
@@ -14,54 +14,74 @@ public class Main17619 {
 	 * 
 	 * 2. N <= 100,000, Q <= 100,000
 	 * 
-	 * 3. dfs, bfs (시간초과)
+	 * 3. dfs, bfs -> (시간초과) 
+	 * MST 알고리즘 사용 크루스칼
 	 */
-	static int N, T, start, end;
-	static int[][] map;
-	static boolean[] visit;
+	static int n, m;
+	static int set[];
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		T = Integer.parseInt(st.nextToken());
-		map = new int[N][3];
 
-		for (int i = 0; i < N; i++) {
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		int arr[][] = new int[n][3];
+
+		set = new int[n + 2];
+
+		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
-			map[i][0] = Integer.parseInt(st.nextToken());
-			map[i][1] = Integer.parseInt(st.nextToken());
-			map[i][2] = Integer.parseInt(st.nextToken());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			arr[i][0] = a;
+			arr[i][1] = b;
+			arr[i][2] = i + 1;
+			set[i + 1] = i + 1;
 		}
 
-		for (int i = 0; i < T; i++) {
+		Arrays.sort(arr, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				return o1[0] - o2[0];
+			}
+		});
+
+		for (int i = 0; i < n - 1; i++) {
+			if (arr[i][0] <= arr[i + 1][0] && arr[i + 1][0] <= arr[i][1]) {
+				union(arr[i][2], arr[i + 1][2]);
+				if (arr[i + 1][1] < arr[i][1])
+					arr[i + 1][1] = arr[i][1];
+				arr[i + 1][0] = arr[i][0];
+			}
+		}
+
+		for (int i = 0; i < m; i++) {
 			st = new StringTokenizer(br.readLine());
-			start = Integer.parseInt(st.nextToken()) - 1;
-			end = Integer.parseInt(st.nextToken()) - 1;
-			visit = new boolean[N];
-
-			bfs(start);
-
-			if (visit[end])
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			if (find(a) == find(b)) {
 				System.out.println(1);
-			else
+			} else {
 				System.out.println(0);
+			}
+		}
+
+	}
+
+	static int find(int x) {
+		if (x == set[x]) {
+			return x;
+		} else {
+			return set[x] = find(set[x]);
 		}
 	}
 
-	private static void bfs(int idx) {
-		Queue<Integer> q = new LinkedList<>();
-		q.add(idx);
-		visit[idx] = true;
+	static void union(int x, int y) {
+		int xx = find(x);
+		int yy = find(y);
 
-		while (!q.isEmpty()) {
-			int index = q.poll();
-			for (int i = 0; i < N; i++) {
-				if (!visit[i] && map[i][0] <= map[index][1] && map[i][1] >= map[index][0]) {
-					q.add(i);
-					visit[i] = true;
-				}
-			}
-		}
+		if (xx != yy)
+			set[yy] = xx;
 	}
 }
