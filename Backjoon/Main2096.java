@@ -16,65 +16,41 @@ public class Main2096 {
 	 * 
 	 * 3. dp이용
 	 */
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		int[][] map = new int[N][N];
-		
-		for (int i = 0; i < N; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < N; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
-			}
-		}
-		
-		int[][] max = new int[N][N];
-		int[][] min = new int[N][N];
-		
-		for (int i = 0; i < N; i++) {
-			max[0][i] = min[0][i] = map[0][i];
-		}
-		
-		int a =0,b=0,c=0,tmpmax=0,tmpmin=0;
-		
-		for (int i = 0; i < N-1; i++) {
-			for (int j = 0; j < N; j++) {
-				if(j ==0) {
-					a = map[i+1][j];
-					b = map[i+1][j+1];
-					if(a>=b) {
-						max[i+1][j] =max[i][j] +a;
-						min[i+1][j] =min[i][j] + b; 
-					}else {
-						max[i+1][j] =max[i][j] +b;
-						min[i+1][j] = min[i][j] +a; 
-					}
-				}else if(j == N-1) {
-					a = map[i+1][j-1];
-					b = map[i+1][j];
-					if(a>=b) {
-						max[i+1][j] =max[i][j] +a;
-						min[i+1][j] = min[i][j] +b; 
-					}else {
-						max[i+1][j] =max[i][j] +b;
-						min[i+1][j] = min[i][j] +a; 
-					}
-				}else {
-					a = map[i+1][j-1];
-					b = map[i+1][j];
-					c = map[i+1][j+1];
-					tmpmax = Math.max(a, Math.max(b, c));
-					tmpmin = Math.min(a, Math.min(b, c));
-						max[i+1][j] =max[i][j] +tmpmax;
-						min[i+1][j] = min[i][j] +tmpmin; 
-				}
-			}
-		}
-		tmpmax = 0; tmpmin=Integer.MAX_VALUE;
-		for (int i = 0; i < N; i++) {
-			tmpmax = Math.max(tmpmax, max[N-1][i]);
-			tmpmin = Math.min(tmpmin, min[N-1][i]);
-		}
-		System.out.println(tmpmax + " " + tmpmin);
-	}
+	static int n;
+    static int dp[][] = new int[100001][3];
+    static int map[][] = new int [100001][3];
+    
+    public static void main(String args[]) throws NumberFormatException, IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n=Integer.parseInt(br.readLine());
+        StringTokenizer st = null;
+        
+        for(int i = 1 ; i <= n ; i++){
+            st = new StringTokenizer(br.readLine());
+            map[i][0] = Integer.parseInt(st.nextToken());
+            map[i][1] = Integer.parseInt(st.nextToken());
+            map[i][2] = Integer.parseInt(st.nextToken());
+        }
+        
+        dp[1][0]=map[1][0];
+        dp[1][1]=map[1][1];
+        dp[1][2]=map[1][2];
+        
+        for(int i = 2 ; i <= n ; i++){
+            dp[i][0]=map[i][0]+Math.max(dp[i-1][0], dp[i-1][1]);
+            dp[i][1]=map[i][1]+Math.max(dp[i-1][0], Math.max(dp[i-1][1], dp[i-1][2]));
+            dp[i][2]=map[i][2]+Math.max(dp[i-1][1], dp[i-1][2]);
+        }
+        int max = Math.max(dp[n][0], Math.max(dp[n][1], dp[n][2]));
+        
+        for(int i = 2 ; i <= n ; i++){
+            dp[i][0]=map[i][0]+Math.min(dp[i-1][0], dp[i-1][1]);
+            dp[i][1]=map[i][1]+Math.min(dp[i-1][0], Math.min(dp[i-1][1], dp[i-1][2]));
+            dp[i][2]=map[i][2]+Math.min(dp[i-1][1], dp[i-1][2]);
+        }
+        int min = Math.min(dp[n][0], Math.min(dp[n][1], dp[n][2]));
+        
+        System.out.println(max + " " + min);
+    }
 }
