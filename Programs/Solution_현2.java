@@ -6,6 +6,9 @@ import java.util.StringTokenizer;
 
 public class Solution_현대카드2 {
 
+	/*
+	 * [수정] 2개 비교할때 "C" 비교 불가부분 수정
+	 */
 	public static void main(String[] args) {
 		String[] ip_addrs = {"5.5.5.5", "155.123.124.111", "10.16.125.0", "155.123.124.111", "5.5.5.5", "155.123.124.111", "10.16.125.0", "10.16.125.0"};
 		String[] langs = {"Java", "C++", "Python3", "C#", "Java", "C", "Python3", "JavaScript"};
@@ -45,7 +48,7 @@ public class Solution_현대카드2 {
 				} else if (list.size() == 2) {
 					String a = langs[list.get(0)];
 					String b = langs[list.get(1)];
-					if((a.substring(0, 1).equals('C') && b.substring(0, 1).equals('C') || a.equals(b))){
+					if((a.substring(0, 1).equals("C") && b.substring(0, 1).equals("C") || a.equals(b))){
 						if(scores[list.get(0)] == scores[list.get(1)]) {
 							for (int j = 0; j < list.size(); j++) {
 								scores[list.get(j)] = 500;

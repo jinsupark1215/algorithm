@@ -5,6 +5,10 @@ import java.util.StringTokenizer;
 
 public class Solution_현대카드1 {
 
+	/*
+	 * [수정] 365일수 예외처리가 안됨 
+	 * 
+	 */
 	public static void main(String[] args) {
 		String[] purchase = {"2019/01/01 5000", "2019/01/20 15000", "2019/02/09 90000"};
 		System.out.println(Arrays.toString(solution(purchase)));
@@ -21,6 +25,7 @@ public class Solution_현대카드1 {
 			st.nextToken();
 			int x = Integer.parseInt(st.nextToken());
 			for (int j = 0; j < 30; j++) {
+				if(month[m]+d+j<365)
 				map[month[m]+d+j] += x;
 			}
 		}
