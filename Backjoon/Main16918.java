@@ -6,9 +6,6 @@ import java.util.Scanner;
 
 public class Main16918 {
 
-	/*
-	 * [백준] 봄버맨
-	 */
 	static int[][] pos = {{1,0},{-1,0},{0,1},{0,-1},{0,0}};
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -43,14 +40,7 @@ public class Main16918 {
 								map[i][j] = 'O';
 							}
 						}
-					}
-					
-					for (int i = 0; i < R; i++) {
-						for (int j = 0; j < C; j++) {
-							System.out.print(map[i][j]);
-						}
-						System.out.println();
-					}
+					}					
 				}else {
 					while(!q.isEmpty()) {
 						bomb b = q.poll();
