@@ -36,7 +36,7 @@ public class Main16918 {
 			}
 		}else {
 			for (int second = 2; second <= N; second++) {
-				if(N % 2 ==0) {
+				if(second % 2 ==0) {
 					for (int i = 0; i < R; i++) {
 						for (int j = 0; j < C; j++) {
 							if(map[i][j] == '.') {
