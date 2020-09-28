@@ -56,19 +56,17 @@ public class Main16929 {
 		visit[r][c] = cnt;
 		
 		if(!flag) {
-		for (int i = 0; i < 4; i++) {
-			if((cnt==2 && i==2)) continue;
-			
-			int nr = r + pos[i][0];
-			int nc = c + pos[i][1];
-			if(nr>=0 && nc>=0 && nr < N && nc < M && map[nr][nc] == map[startr][startc]) {
-				if(visit[nr][nc]== 0) {
-					dfs(nr,nc,startr,startc, cnt+1);
-				}else if(cnt !=2 &&visit[nr][nc] == 1){
-					flag = true;
+			for (int i = 0; i < 4; i++) {
+				int nr = r + pos[i][0];
+				int nc = c + pos[i][1];
+				if (nr >= 0 && nc >= 0 && nr < N && nc < M && map[nr][nc] == map[startr][startc]) {
+					if (visit[nr][nc] == 0) {
+						dfs(nr, nc, startr, startc, cnt + 1);
+					} else if (cnt != 2 && visit[nr][nc] == 1) { // 갔다가 다시 원래 자리로 돌아오는 경우 제외
+						flag = true;
+					}
 				}
 			}
-		}
 		}
 		visit[r][c] = 0;
 	}
