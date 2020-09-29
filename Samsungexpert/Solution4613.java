@@ -10,7 +10,9 @@ public class Solution4613 {
 	/*
 	 * 1. 러시아 국기같은 깃발을 만들기 위해 칠해야 하는 최소칸수
 	 * 
-	 * 2. N,M <=50 m 3. 완탐
+	 * 2. N,M <=50 m 
+	 * 
+	 * 3. 완탐
 	 */
 	static int n, m, ans;
 	static char[][] map;
