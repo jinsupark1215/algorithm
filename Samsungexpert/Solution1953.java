@@ -9,7 +9,9 @@ import java.util.StringTokenizer;
 
 public class Solution1953 {
 
-	/* 1. 탈주범이 있을 수 있는 공간의 갯수 세기
+	/* [삼성] 탈주범 검거
+	 * 
+	 * 1. 탈주범이 있을 수 있는 공간의 갯수 세기
 	 * 
 	 * 2. 5<= N,M <=50, L <=20
 	 * 
