@@ -3,72 +3,52 @@ package Backjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main16929 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        Queue<Integer> circle = new LinkedList<Integer>();
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int R = Integer.parseInt(st.nextToken());
+        int i,j,n,m,cycle,rot,tmp;
+        int[][] arr = new int[N+1][M+1];
+        for(i = 1 ; i <= N ; i++) {
+            st = new StringTokenizer(br.readLine());
+            for(j = 1 ; j <= M ; j++) arr[i][j] = Integer.parseInt(st.nextToken());
+        }
+        cycle = Math.min(N, M)/2;
+        n = N;
+        m = M;
+        for(i = 1 ; i <= cycle ; i++) {
+            rot = R;
+            for(j = i ; j < M ; j++) circle.add(arr[i][j]);
+            for(j = i ; j < N ; j++) circle.add(arr[j][M]);
+            for(j = M ; j > i ; j--) circle.add(arr[N][j]);
+            for(j = N ; j > i ; j--) circle.add(arr[j][i]);
+            rot %= circle.size();
+            while(rot-- > 0) {
+                tmp = circle.peek();
+                circle.poll();
+                circle.offer(tmp);
+            }
+            for(j = i ; j < M ; j++) arr[i][j] = circle.poll();
+            for(j = i ; j < N ; j++) arr[j][M] = circle.poll();
+            for(j = M ; j > i ; j--) arr[N][j] = circle.poll();
+            for(j = N ; j > i ; j--) arr[j][i] = circle.poll();
+            N--;
+            M--;
+        }
 
-	/*
-	 * [백준] Two dots
-	 * 
-	 * 1. 사이클이 존재하는지?
-	 * 
-	 * 2. N,M <=50
-	 * 
-	 * 3. visit 으로 시작점 잡고 돌아올수 있는지 체크
-	 */
-	static int N , M;
-	static boolean flag;
-	static int[][] map;
-	static int[][] visit;
-	static int[][] pos = {{0,1},{1,0},{0,-1},{-1,0}};
-	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		map = new int[N][M];
-		visit = new int[N][M];
-		flag = false;
-		
-		for (int i = 0; i < N; i++) {
-			String input = br.readLine();
-			for (int j = 0; j < M; j++) {
-				map[i][j] = input.charAt(j) - 'A';
-			}
-		}
-		
-		fin:
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if(!flag) {
-					dfs(i,j,i,j,1);
-				}else break fin;
-			}
-		}
-		
-		if(flag)System.out.println("Yes");
-		else System.out.println("No");
-	}
-
-	private static void dfs(int r, int c,int startr, int startc, int cnt) {
-		
-		visit[r][c] = cnt;
-		
-		if(!flag) {
-			for (int i = 0; i < 4; i++) {
-				int nr = r + pos[i][0];
-				int nc = c + pos[i][1];
-				if (nr >= 0 && nc >= 0 && nr < N && nc < M && map[nr][nc] == map[startr][startc]) {
-					if (visit[nr][nc] == 0) {
-						dfs(nr, nc, startr, startc, cnt + 1);
-					} else if (cnt != 2 && visit[nr][nc] == 1) { // 갔다가 다시 원래 자리로 돌아오는 경우 제외
-						flag = true;
-					}
-				}
-			}
-		}
-		visit[r][c] = 0;
-	}
-
+        for(i = 1 ; i <= n ; i++) {
+            for(j = 1 ; j <= m ; j++) sb.append(arr[i][j]).append(" ");
+            sb.append('\n');
+        }
+        System.out.print(sb.toString());
+    }
 }
